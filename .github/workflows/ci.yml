@@ -10,6 +10,7 @@ on:
 
 jobs:
   checks:
+    name: Lint and build
     runs-on: ubuntu-latest
 
     steps:
