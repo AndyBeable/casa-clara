@@ -18,11 +18,11 @@ export default function PropertyCard({ property }: PropertyCardProps) {
   const propertyUrl = `/properties/${property.slug}`;
 
   return (
-    <article className="group overflow-hidden rounded-2xl border border-border bg-surface transition-shadow duration-300 hover:shadow-lg">
+    <article className="group flex flex-col gap-2.5 overflow-hidden rounded-2xl border border-border bg-surface transition-shadow duration-300 hover:shadow-lg">
       <Link
         href={propertyUrl}
         aria-label={`View ${property.title}`}
-        className="relative block aspect-[4/3] overflow-hidden"
+        className="relative block aspect-[191/144] overflow-hidden"
       >
         <Image
           src={property.image.src}
@@ -32,17 +32,17 @@ export default function PropertyCard({ property }: PropertyCardProps) {
           className="object-cover transition-transform duration-500 group-hover:scale-105"
         />
 
-        <span className="absolute top-4 left-4 rounded-full bg-surface/90 px-3 py-1 text-xs font-medium tracking-wider text-foreground uppercase backdrop-blur-sm">
+        <span className="absolute top-4 left-4 rounded-full bg-surface px-3 py-1 text-xs leading-4 font-semibold tracking-[0.18em] text-foreground uppercase">
           {property.propertyType}
         </span>
       </Link>
 
       <div className="p-5">
-        <p className="text-sm font-medium tracking-wide text-accent">
-          {area}, {city}
+        <p className="text-xs leading-4 font-semibold tracking-[0.18em] text-accent uppercase">
+          {area} · {city}
         </p>
 
-        <h2 className="mt-2 font-display text-2xl leading-tight font-medium">
+        <h2 className="mt-1.5 font-display text-2xl leading-[30px] font-medium">
           <Link
             href={propertyUrl}
             className="transition-colors hover:text-accent focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
@@ -51,11 +51,11 @@ export default function PropertyCard({ property }: PropertyCardProps) {
           </Link>
         </h2>
 
-        <p className="mt-3 text-lg font-medium">{formattedPrice}</p>
+        <p className="mt-3 text-lg leading-8 font-normal">{formattedPrice}</p>
 
         <ul
           aria-label="Property details"
-          className="mt-4 flex flex-wrap items-center gap-3 border-t border-border pt-4 text-sm text-muted"
+          className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 border-t border-border pt-2 text-base leading-6 text-muted"
         >
           <li>
             {property.bedrooms}{" "}
