@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { getPropertyBySlug, properties } from "@/data/properties";
@@ -8,6 +9,24 @@ export function generateStaticParams() {
   return properties.map((property) => ({
     slug: property.slug,
   }));
+}
+
+export async function generateMetadata({
+  params,
+}: PageProps<"/properties/[slug]">): Promise<Metadata> {
+  const { slug } = await params;
+
+  const property = getPropertyBySlug(slug);
+
+  if (!property) {
+    return {
+      title: "Property not found",
+    };
+  }
+  return {
+    title: property.title,
+    description: property.description,
+  };
 }
 
 export default async function PropertyPage({
