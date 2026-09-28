@@ -1,7 +1,13 @@
-import PropertyCard from "@/components/PropertyCard/PropertyCard";
+import PropertyGrid from "@/components/PropertyGrid/PropertyGrid";
 import { properties } from "@/data/properties";
+import Link from "next/link";
+
+const viewAllPropertiesClassName =
+  "inline-flex h-11 items-center justify-center rounded-full bg-foreground px-6 text-sm font-semibold text-background transition-opacity hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent";
 
 export default function Home() {
+  const featuredProperties = properties.slice(0, 3);
+
   return (
     <main className="px-6 py-16 sm:py-20 lg:px-8">
       <div className="mx-auto max-w-7xl">
@@ -20,10 +26,11 @@ export default function Home() {
           </p>
         </header>
 
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {properties.map((property) => (
-            <PropertyCard key={property.id} property={property} />
-          ))}
+        <PropertyGrid properties={featuredProperties} />
+        <div className="mt-10 flex justify-center">
+          <Link href="/properties" className={viewAllPropertiesClassName}>
+            View all properties
+          </Link>
         </div>
       </div>
     </main>
