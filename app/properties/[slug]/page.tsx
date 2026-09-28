@@ -34,6 +34,7 @@ export default async function PropertyPage({
 }: PageProps<"/properties/[slug]">) {
   const { slug } = await params;
   const property = getPropertyBySlug(slug);
+  const propertiesUrl = "/properties";
 
   if (!property) {
     notFound();
@@ -66,7 +67,7 @@ export default async function PropertyPage({
     <main className="px-6 py-8 sm:py-12 lg:px-8">
       <div className="mx-auto max-w-7xl">
         <Link
-          href="/"
+          href={propertiesUrl}
           className="mb-6 inline-flex text-xs font-semibold tracking-[0.18em] text-foreground uppercase transition-colors hover:text-accent focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
         >
           ← Back to properties
