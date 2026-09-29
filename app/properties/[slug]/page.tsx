@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import SavePropertyButton from "@/components/SavePropertyButton/SavePropertyButton";
 
 import { getPropertyBySlug, properties } from "@/data/properties";
 
@@ -82,6 +83,12 @@ export default async function PropertyPage({
             sizes="(min-width: 1280px) 1216px, calc(100vw - 48px)"
             className="object-cover"
           />
+          <div className="absolute top-4 right-4 z-10 sm:top-6 sm:right-6">
+            <SavePropertyButton
+              propertyId={property.id}
+              propertyTitle={property.title}
+            />
+          </div>
         </div>
 
         <div className="mt-10 grid items-start gap-10 lg:grid-cols-[minmax(0,1fr)_22rem] lg:gap-16">
