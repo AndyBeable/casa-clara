@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import SavePropertyButton from "../SavePropertyButton/SavePropertyButton";
 import type { Property } from "@/types/property";
 
 type PropertyCardProps = {
@@ -19,23 +20,31 @@ export default function PropertyCard({ property }: PropertyCardProps) {
 
   return (
     <article className="group flex flex-col gap-2.5 overflow-hidden rounded-2xl border border-border bg-surface transition-shadow duration-300 hover:shadow-lg">
-      <Link
-        href={propertyUrl}
-        aria-label={`View ${property.title}`}
-        className="relative block aspect-[191/144] overflow-hidden"
-      >
-        <Image
-          src={property.image.src}
-          alt={property.image.alt}
-          fill
-          sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-          className="object-cover transition-transform duration-500 group-hover:scale-105"
-        />
+      <div className="relative">
+        <Link
+          href={propertyUrl}
+          aria-label={`View ${property.title}`}
+          className="relative block aspect-[191/144] overflow-hidden"
+        >
+          <Image
+            src={property.image.src}
+            alt={property.image.alt}
+            fill
+            sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
+          />
 
-        <span className="absolute top-4 left-4 rounded-full bg-surface px-3 py-1 text-xs leading-4 font-semibold tracking-[0.18em] text-foreground uppercase">
-          {property.propertyType}
-        </span>
-      </Link>
+          <span className="absolute top-4 left-4 rounded-full bg-surface px-3 py-1 text-xs leading-4 font-semibold tracking-[0.18em] text-foreground uppercase">
+            {property.propertyType}
+          </span>
+        </Link>
+        <div className="absolute top-4 right-4 z-10">
+          <SavePropertyButton
+            propertyId={property.id}
+            propertyTitle={property.title}
+          />
+        </div>
+      </div>
 
       <div className="p-5">
         <p className="text-xs leading-4 font-semibold tracking-[0.18em] text-accent uppercase">
