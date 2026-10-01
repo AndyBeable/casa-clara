@@ -1,6 +1,7 @@
 "use client";
 
 import PropertyGrid from "@/components/PropertyGrid/PropertyGrid";
+import EmptyState from "@/components/EmptyState/EmptyState";
 import { useSavedPropertyIds } from "@/hooks/useSavedProperties";
 import type { Property } from "@/types/property";
 import Link from "next/link";
@@ -23,20 +24,15 @@ export default function SavedPropertiesGrid({
 
   if (!savedProperties.length) {
     return (
-      <div className="rounded-2xl border border-border bg-surface px-6 py-12 text-center">
-        <h2 className="font-display text-2xl font-medium">
-          No saved properties yet
-        </h2>
-
-        <p className="mt-2 text-muted">
-          Save homes from the property collection and they’ll appear here.
-        </p>
-        <div className="mt-10 flex justify-center">
+      <EmptyState
+        title="No saved properties yet"
+        description="Save homes from the property collection and they’ll appear here."
+        action={
           <Link href="/properties" className={explorePropertiesClassName}>
             Explore properties
           </Link>
-        </div>
-      </div>
+        }
+      />
     );
   }
 
