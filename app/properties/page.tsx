@@ -1,5 +1,6 @@
 import { properties } from "@/data/properties";
 import PropertyGrid from "@/components/PropertyGrid/PropertyGrid";
+import PageIntro from "@/components/PageIntro/PageIntro";
 import PropertySearchForm from "@/components/PropertySearchForm/PropertySearchForm";
 import { filterProperties } from "@/lib/properties/filterProperties";
 
@@ -42,20 +43,11 @@ export default async function PropertiesPage({
   return (
     <main className="px-6 py-16 sm:py-20 lg:px-8">
       <div className="mx-auto max-w-7xl">
-        <header className="mb-10 max-w-2xl">
-          <p className="text-xs font-semibold tracking-[0.18em] text-accent uppercase">
-            Casa Clara collection
-          </p>
-
-          <h1 className="mt-3 font-display text-4xl leading-tight font-medium sm:text-5xl">
-            Find your place in the sun
-          </h1>
-
-          <p className="mt-4 max-w-xl text-base leading-7 text-muted sm:text-lg">
-            Explore distinctive homes across Barcelona and the Mediterranean
-            coast.
-          </p>
-        </header>
+        <PageIntro
+          eyebrow="Casa Clara collection"
+          title="Find your place in the sun"
+          description="Explore distinctive homes across Barcelona and the Mediterranean coast."
+        />
         <PropertySearchForm
           query={searchQuery}
           propertyType={selectedPropertyType}
