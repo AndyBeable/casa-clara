@@ -2,6 +2,7 @@ import { properties } from "@/data/properties";
 import PropertyGrid from "@/components/PropertyGrid/PropertyGrid";
 import PageIntro from "@/components/PageIntro/PageIntro";
 import PropertySearchForm from "@/components/PropertySearchForm/PropertySearchForm";
+import EmptyState from "@/components/EmptyState/EmptyState";
 import { filterProperties } from "@/lib/properties/filterProperties";
 
 export default async function PropertiesPage({
@@ -64,15 +65,10 @@ export default async function PropertiesPage({
         {filteredProperties.length > 0 ? (
           <PropertyGrid properties={filteredProperties} />
         ) : (
-          <div className="rounded-2xl border border-border bg-surface px-6 py-12 text-center">
-            <h2 className="font-display text-2xl font-medium">
-              No homes found
-            </h2>
-
-            <p className="mt-2 text-muted">
-              Try changing or clearing some of your search filters.
-            </p>
-          </div>
+          <EmptyState
+            title="No homes found"
+            description="Try changing or clearing some of your search filters."
+          />
         )}
       </div>
     </main>
