@@ -3,6 +3,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import SavePropertyButton from "@/components/SavePropertyButton/SavePropertyButton";
+import RelatedProperties from "@/components/RelatedProperties/RelatedProperties";
 
 import { getPropertyBySlug, properties } from "@/data/properties";
 
@@ -40,6 +41,25 @@ export default async function PropertyPage({
   if (!property) {
     notFound();
   }
+
+  const sameTypeProperties = properties.filter((candidateProperty) => {
+    return (
+      candidateProperty.id !== property.id &&
+      candidateProperty.propertyType === property.propertyType
+    );
+  });
+
+  const otherProperties = properties.filter((candidateProperty) => {
+    return (
+      candidateProperty.id !== property.id &&
+      candidateProperty.propertyType !== property.propertyType
+    );
+  });
+
+  const relatedProperties = [...sameTypeProperties, ...otherProperties].slice(
+    0,
+    3,
+  );
 
   const propertyLocation = `${property.location.area}, ${property.location.city}`;
 
@@ -159,6 +179,7 @@ export default async function PropertyPage({
             </p>
           </aside>
         </div>
+        <RelatedProperties properties={relatedProperties} />
       </div>
     </main>
   );
