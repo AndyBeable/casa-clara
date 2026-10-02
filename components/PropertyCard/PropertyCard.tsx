@@ -5,9 +5,13 @@ import type { Property } from "@/types/property";
 
 type PropertyCardProps = {
   property: Property;
+  eagerLoadImage?: boolean;
 };
 
-export default function PropertyCard({ property }: PropertyCardProps) {
+export default function PropertyCard({
+  property,
+  eagerLoadImage = false,
+}: PropertyCardProps) {
   const { area, city } = property.location;
 
   const formattedPrice = new Intl.NumberFormat("en-GB", {
@@ -29,6 +33,7 @@ export default function PropertyCard({ property }: PropertyCardProps) {
           <Image
             src={property.image.src}
             alt={property.image.alt}
+            loading={eagerLoadImage ? "eager" : "lazy"}
             fill
             sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
             className="object-cover transition-transform duration-500 group-hover:scale-105"

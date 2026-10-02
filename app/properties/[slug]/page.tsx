@@ -4,10 +4,14 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import SavePropertyButton from "@/components/SavePropertyButton/SavePropertyButton";
 import RelatedProperties from "@/components/RelatedProperties/RelatedProperties";
+import {
+  getContentfulProperties,
+  getContentfulPropertyBySlug,
+} from "@/lib/contentful/properties";
 
-import { getPropertyBySlug, properties } from "@/data/properties";
+export async function generateStaticParams() {
+  const properties = await getContentfulProperties();
 
-export function generateStaticParams() {
   return properties.map((property) => ({
     slug: property.slug,
   }));
@@ -18,7 +22,7 @@ export async function generateMetadata({
 }: PageProps<"/properties/[slug]">): Promise<Metadata> {
   const { slug } = await params;
 
-  const property = getPropertyBySlug(slug);
+  const property = await getContentfulPropertyBySlug(slug);
 
   if (!property) {
     return {
@@ -35,8 +39,12 @@ export default async function PropertyPage({
   params,
 }: PageProps<"/properties/[slug]">) {
   const { slug } = await params;
-  const property = getPropertyBySlug(slug);
+  const properties = await getContentfulProperties();
   const propertiesUrl = "/properties";
+
+  const property = properties.find(
+    (candidateProperty) => candidateProperty.slug === slug,
+  );
 
   if (!property) {
     notFound();
@@ -99,7 +107,7 @@ export default async function PropertyPage({
             src={property.image.src}
             alt={property.image.alt}
             fill
-            priority
+            preload
             sizes="(min-width: 1280px) 1216px, calc(100vw - 48px)"
             className="object-cover"
           />

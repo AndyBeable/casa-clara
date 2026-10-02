@@ -1,4 +1,4 @@
-import { properties } from "@/data/properties";
+import { getContentfulProperties } from "@/lib/contentful/properties";
 import PropertyGrid from "@/components/PropertyGrid/PropertyGrid";
 import PageIntro from "@/components/PageIntro/PageIntro";
 import PropertySearchForm from "@/components/PropertySearchForm/PropertySearchForm";
@@ -33,6 +33,8 @@ export default async function PropertiesPage({
     Number.isInteger(parsedMaxPrice) && parsedMaxPrice > 0
       ? parsedMaxPrice
       : undefined;
+
+  const properties = await getContentfulProperties();
 
   const filteredProperties = filterProperties(properties, {
     query: searchQuery,

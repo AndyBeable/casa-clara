@@ -1,4 +1,4 @@
-import { getPropertyBySlug } from "@/data/properties";
+import { getContentfulPropertyBySlug } from "@/lib/contentful/properties";
 import { notFound } from "next/navigation";
 import EnquiryForm from "@/components/EnquiryForm/EnquiryForm";
 
@@ -9,7 +9,7 @@ export default async function EnquiryPage({
 
   const propertySlug = typeof property === "string" ? property : "";
 
-  const selectedProperty = getPropertyBySlug(propertySlug);
+  const selectedProperty = await getContentfulPropertyBySlug(propertySlug);
 
   if (!selectedProperty) {
     notFound();
