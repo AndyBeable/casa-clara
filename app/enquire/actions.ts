@@ -1,7 +1,7 @@
 "use server";
 
 import { Resend } from "resend";
-import { getPropertyBySlug } from "@/data/properties";
+import { getContentfulPropertyBySlug } from "@/lib/contentful/properties";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -25,7 +25,7 @@ export async function submitEnquiry(
     };
   }
 
-  const selectedProperty = getPropertyBySlug(propertySlug);
+  const selectedProperty = await getContentfulPropertyBySlug(propertySlug);
 
   if (!selectedProperty) {
     return {
