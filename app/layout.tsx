@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Cormorant_Garamond, DM_Sans } from "next/font/google";
 import SiteHeader from "@/components/SiteHeader/SiteHeader";
 import SiteFooter from "@/components/SiteFooter/SiteFooter";
+import PageTransition from "@/components/PageTransition/PageTransition";
 import "./globals.css";
 
 const dmSans = DM_Sans({
@@ -32,7 +33,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="min-h-full bg-background font-sans text-foreground">
         <SiteHeader />
-        {children}
+        <PageTransition>{children}</PageTransition>
         <SiteFooter />
       </body>
     </html>
