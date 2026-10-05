@@ -3,6 +3,9 @@ import "server-only";
 import { contentfulClient } from "@/lib/contentful/client";
 import type { PropertyEntrySkeleton } from "@/lib/contentful/types";
 import type { Property, PropertyType } from "@/types/property";
+import { cacheLife, cacheTag } from "next/cache";
+
+export const CONTENTFUL_PROPERTIES_CACHE_TAG = "contentful-properties";
 
 async function getRawPropertyEntries() {
   const response =
@@ -21,6 +24,11 @@ function isPropertyType(value: string): value is PropertyType {
 }
 
 export async function getContentfulProperties(): Promise<Property[]> {
+  "use cache";
+
+  cacheLife("hours");
+  cacheTag(CONTENTFUL_PROPERTIES_CACHE_TAG);
+
   const entries = await getRawPropertyEntries();
 
   return entries.map((entry) => {

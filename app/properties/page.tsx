@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { getContentfulProperties } from "@/lib/contentful/properties";
 import PropertyGrid from "@/components/PropertyGrid/PropertyGrid";
 import PageIntro from "@/components/PageIntro/PageIntro";
@@ -5,9 +6,32 @@ import PropertySearchForm from "@/components/PropertySearchForm/PropertySearchFo
 import EmptyState from "@/components/EmptyState/EmptyState";
 import { filterProperties } from "@/lib/properties/filterProperties";
 
-export default async function PropertiesPage({
+type PropertiesSearchParams = PageProps<"/properties">["searchParams"];
+
+export default function PropertiesPage({
   searchParams,
 }: PageProps<"/properties">) {
+  return (
+    <main className="px-6 py-16 sm:py-20 lg:px-8">
+      <div className="mx-auto max-w-7xl">
+        <PageIntro
+          eyebrow="Casa Clara collection"
+          title="Find your place in the sun"
+          description="Explore distinctive homes across Barcelona and the Mediterranean coast."
+        />
+        <Suspense fallback={<p className="text-muted">Loading properties…</p>}>
+          <PropertiesContent searchParams={searchParams} />
+        </Suspense>
+      </div>
+    </main>
+  );
+}
+
+async function PropertiesContent({
+  searchParams,
+}: {
+  searchParams: PropertiesSearchParams;
+}) {
   const { query, propertyType, minBedrooms, maxPrice } = await searchParams;
 
   const searchQuery = typeof query === "string" ? query : "";
@@ -44,35 +68,28 @@ export default async function PropertiesPage({
   });
 
   return (
-    <main className="px-6 py-16 sm:py-20 lg:px-8">
-      <div className="mx-auto max-w-7xl">
-        <PageIntro
-          eyebrow="Casa Clara collection"
-          title="Find your place in the sun"
-          description="Explore distinctive homes across Barcelona and the Mediterranean coast."
-        />
-        <PropertySearchForm
-          query={searchQuery}
-          propertyType={selectedPropertyType}
-          minBedrooms={selectedMinBedrooms}
-          maxPrice={selectedMaxPrice}
-        />
-        <div className="mb-6">
-          <p className="text-sm text-muted">
-            {filteredProperties.length}{" "}
-            {filteredProperties.length === 1 ? "home" : "homes"} found
-          </p>
-        </div>
-
-        {filteredProperties.length > 0 ? (
-          <PropertyGrid properties={filteredProperties} />
-        ) : (
-          <EmptyState
-            title="No homes found"
-            description="Try changing or clearing some of your search filters."
-          />
-        )}
+    <>
+      <PropertySearchForm
+        query={searchQuery}
+        propertyType={selectedPropertyType}
+        minBedrooms={selectedMinBedrooms}
+        maxPrice={selectedMaxPrice}
+      />
+      <div className="mb-6">
+        <p className="text-sm text-muted">
+          {filteredProperties.length}{" "}
+          {filteredProperties.length === 1 ? "home" : "homes"} found
+        </p>
       </div>
-    </main>
+
+      {filteredProperties.length > 0 ? (
+        <PropertyGrid properties={filteredProperties} eagerLoadFirstImage />
+      ) : (
+        <EmptyState
+          title="No homes found"
+          description="Try changing or clearing some of your search filters."
+        />
+      )}
+    </>
   );
 }
