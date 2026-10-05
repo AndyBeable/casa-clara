@@ -1,10 +1,19 @@
 import Link from "next/link";
+import { cacheLife } from "next/cache";
+
+async function getCurrentYear() {
+  "use cache";
+
+  cacheLife("max");
+
+  return new Date().getFullYear();
+}
 
 const navLinkClassName =
   "rounded-sm text-xs font-medium tracking-[0.14em] text-background/70 uppercase transition-colors hover:text-background focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent";
 
-export default function SiteFooter() {
-  const copyrightYear = new Date().getFullYear();
+export default async function SiteFooter() {
+  const copyrightYear = await getCurrentYear();
 
   return (
     <footer className="bg-foreground text-background">
