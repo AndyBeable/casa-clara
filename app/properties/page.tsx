@@ -5,6 +5,7 @@ import PageIntro from "@/components/PageIntro/PageIntro";
 import PropertySearchForm from "@/components/PropertySearchForm/PropertySearchForm";
 import EmptyState from "@/components/EmptyState/EmptyState";
 import { filterProperties } from "@/lib/properties/filterProperties";
+import NaturalLanguageSearchForm from "@/components/NaturalLanguageSearchForm/NaturalLanguageSearchForm";
 
 type PropertiesSearchParams = PageProps<"/properties">["searchParams"];
 
@@ -19,6 +20,9 @@ export default function PropertiesPage({
           title="Find your place in the sun"
           description="Explore distinctive homes across Barcelona and the Mediterranean coast."
         />
+
+        <NaturalLanguageSearchForm />
+
         <Suspense fallback={<p className="text-muted">Loading properties…</p>}>
           <PropertiesContent searchParams={searchParams} />
         </Suspense>
