@@ -1,4 +1,5 @@
 import { getContentfulProperties } from "@/lib/contentful/properties";
+import HomeHero from "@/components/HomeHero/HomeHero";
 import PropertyGrid from "@/components/PropertyGrid/PropertyGrid";
 import PageIntro from "@/components/PageIntro/PageIntro";
 import Link from "next/link";
@@ -11,8 +12,9 @@ export default async function Home() {
   const featuredProperties = properties.slice(0, 3);
 
   return (
-    <main className="px-6 py-16 sm:py-20 lg:px-8">
-      <div className="mx-auto max-w-7xl">
+    <main>
+      <HomeHero />
+      <div className="mx-auto max-w-7xl px-6 py-16 sm:py-20 lg:px-8">
         <PageIntro
           eyebrow="Homes selected by Casa Clara"
           title="Distinctive homes, filled with light."
