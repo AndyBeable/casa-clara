@@ -17,12 +17,26 @@ const cormorantGaramond = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
-  title: {
-    default: "Casa Clara",
-    template: "%s | Casa Clara",
-  },
+  metadataBase: new URL("https://casa-clara-six.vercel.app"),
+  title: "Casa Clara | Find Your Place in the Sun",
   description:
-    "A fictional property discovery experience for distinctive homes across Barcelona and the Mediterranean coast.",
+    "Discover beautiful properties with Casa Clara, a modern property discovery experience.",
+  openGraph: {
+    title: "Casa Clara | Find Your Place in the Sun",
+    description:
+      "A modern property discovery experience built with Next.js and Contentful.",
+    url: "https://casa-clara-six.vercel.app",
+    siteName: "Casa Clara",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Casa Clara property discovery website",
+      },
+    ],
+    type: "website",
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
